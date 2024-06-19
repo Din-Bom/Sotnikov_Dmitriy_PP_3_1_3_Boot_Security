@@ -29,15 +29,17 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Actions</th>
+        <th>id</th>
+        <th>Имя пользователя</th>
+        <th>Роль пользователя</th>
+        <th>Действие</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.username}"></td>
+        <td> th:text="${user.role}"</td>
         <td>
 
             <form th:action="@{/edit}" method="GET">
@@ -52,6 +54,6 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{/new}">Add New User</a>
+<a th:href="@{/new}">Добавить нового пользователя</a>
 </body>
 </html>
