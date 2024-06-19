@@ -1,6 +1,10 @@
 package ru.kata.spring.boot_security.demo.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+import ru.kata.spring.boot_security.demo.configs.WebSecurityConfig;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 import javax.persistence.EntityManager;
@@ -11,6 +15,12 @@ import java.util.Optional;
 
 @Repository
 public class UserDaolmp implements UserDao {
+
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -28,6 +38,8 @@ public class UserDaolmp implements UserDao {
 
     @Override
     public void addUser(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 

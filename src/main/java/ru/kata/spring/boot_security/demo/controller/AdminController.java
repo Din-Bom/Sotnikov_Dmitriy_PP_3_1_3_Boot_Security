@@ -20,7 +20,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/admin")
 public class AdminController {
     private final UserService userService;
 
@@ -29,7 +29,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public String getUsersTable(Model model) {
         model.addAttribute("users", userService.getUsersList());
         return "users";
@@ -46,7 +46,7 @@ public class AdminController {
             return "new";
         }
         userService.addUser(user);
-        return "redirect:/";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/edit")
@@ -61,12 +61,12 @@ public class AdminController {
             return "edit";
         }
         userService.editUser(user);
-        return "redirect:/";
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping("/delete")
     public String deleteUser(@RequestParam("id") int id) {
         userService.deleteUser(id);
-        return "redirect:/";
+        return "redirect:/admin/users";
     }
 }

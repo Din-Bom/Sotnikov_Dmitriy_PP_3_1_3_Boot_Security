@@ -47,11 +47,11 @@
     </span>
         </td>
         <td>
-            <form th:action="@{/edit}" method="GET">
+            <form th:action="@{/admin/edit}" method="GET">
                 <input type="hidden" name="id" th:value="${user.id}"/>
                 <input type="submit" value="Редактировать"/>
             </form>
-            <form th:action="@{/delete}" th:method="DELETE">
+            <form th:action="@{/admin/delete}" th:method="DELETE">
                 <input type="hidden" name="id" th:value="${user.id}"/>
                 <input type="submit" value="Удалить"/>
             </form>
@@ -59,6 +59,6 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{/new}">Добавить нового пользователя</a>
+<a th:href="@{/admin/new}">Добавить нового пользователя</a>
 </body>
 </html>
