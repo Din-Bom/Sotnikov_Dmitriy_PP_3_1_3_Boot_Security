@@ -39,8 +39,13 @@
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.username}"></td>
-        <td th:each="role : ${user.getRoleSet()}"
-            th:text="${role.getRolename()}"></td>
+        <td>
+            <span th:if="${user.getRoleSet().size() == 0}" style="color: red">РОЛЬ НЕ НАЗНАЧЕНА</span>
+            <span th:each="role, iterStat : ${user.getRoleSet()}">
+            <span th:text="${role.getRolename()}"></span>
+            <span th:if="${!iterStat.last}">, </span>
+    </span>
+        </td>
         <td>
             <form th:action="@{/edit}" method="GET">
                 <input type="hidden" name="id" th:value="${user.id}"/>

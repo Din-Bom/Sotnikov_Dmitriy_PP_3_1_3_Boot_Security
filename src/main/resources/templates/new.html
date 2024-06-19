@@ -21,7 +21,7 @@
 <form th:method="POST" th:action="@{/add}" th:object="${user}">
     <label for="name">Name: </label>
     <input type="text" th:field="*{username}" id="name"/>
-    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name is not correct</div>
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red;">Name is not correct</div>
     <input type="submit" value="Add New User"/>
 </form>
 <form th:action="@{/}" method="GET">

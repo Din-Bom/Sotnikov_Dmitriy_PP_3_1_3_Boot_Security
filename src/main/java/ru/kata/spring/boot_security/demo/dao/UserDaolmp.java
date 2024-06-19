@@ -17,7 +17,7 @@ public class UserDaolmp implements UserDao {
 
     @Override
     public List<User> getUsersList() {
-        return entityManager.createQuery("select distinct u from User u join fetch u.roleSet", User.class).getResultList();
+        return entityManager.createQuery("select distinct u from User u left join fetch u.roleSet", User.class).getResultList();
     }
 
     @Override
