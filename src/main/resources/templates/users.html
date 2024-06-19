@@ -49,11 +49,11 @@
         <td>
             <form th:action="@{/edit}" method="GET">
                 <input type="hidden" name="id" th:value="${user.id}"/>
-                <input type="submit" value="Edit"/>
+                <input type="submit" value="Редактировать"/>
             </form>
             <form th:action="@{/delete}" th:method="DELETE">
                 <input type="hidden" name="id" th:value="${user.id}"/>
-                <input type="submit" value="Delete"/>
+                <input type="submit" value="Удалить"/>
             </form>
         </td>
     </tr>
