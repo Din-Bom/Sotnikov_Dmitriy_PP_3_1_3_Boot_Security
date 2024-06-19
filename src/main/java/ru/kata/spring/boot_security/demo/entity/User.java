@@ -27,8 +27,9 @@ public class User implements UserDetails {
     private int id;
 
     @Column(name = "name")
-    @Size(min = 2, max = 30, message = "The name must not be less than 2 or more than 30 characters")
-    @NotEmpty(message = "The field should not be empty")
+    @Size(min = 2, message = "Имя пользователя не может содержать меньше двух букв")
+    @Size(max = 30, message = "Имя пользователя не может содержать больше тридцати букв")
+    @NotEmpty(message = "Пользователь не может быть создан без имени")
     private String username;
 
     private String password;
@@ -55,11 +56,18 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public @Size(min = 2, max = 30, message = "The name must not be less than 2 or more than 30 characters") @NotEmpty(message = "The field should not be empty") String getUsername() {
-        return username;
+    @Override
+    public @Size(min = 2, message = "Имя пользователя не может содержать меньше двух букв")
+           @Size(max = 30, message = "Имя пользователя не может содержать больше тридцати букв")
+           @NotEmpty(message = "Пользователь не может быть создан без имени")
+        String getUsername() {
+            return username;
     }
 
-    public void setUsername(@Size(min = 2, max = 30, message = "The name must not be less than 2 or more than 30 characters") @NotEmpty(message = "The field should not be empty") String username) {
+    public void setUsername(@Size(min = 2, message = "Имя пользователя не может содержать меньше двух букв")
+                            @Size(max = 30, message = "Имя пользователя не может содержать больше тридцати букв")
+                            @NotEmpty(message = "Пользователь не может быть создан без имени")
+                            String username) {
         this.username = username;
     }
 

@@ -16,10 +16,9 @@
     </style>
 </head>
 <body>
-<h2>Edit User</h2>
-<br>
+<h2><p style="text-align: center;"><b>Изменение данных</b></h2>
 <form th:method="PATCH" th:action="@{/update}" th:object="${user}">
-    <label for="name">Name: </label>
+    <label for="name">Имя пользователя: </label>
     <input type="text" th:field="*{username}" id="name"/>
     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name is not correct</div>
 
