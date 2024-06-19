@@ -21,7 +21,11 @@ public class User {
     @Column(name = "name")
     @Size(min = 2, max = 30, message = "The name must not be less than 2 or more than 30 characters")
     @NotEmpty(message = "The field should not be empty")
-    private String name;
+    private String username;
+
+    private String password;
+
+    /*private Set<Role> roleSet;*/
 
     public User() {
     }
@@ -34,11 +38,11 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public @Size(min = 2, max = 30, message = "The name must not be less than 2 or more than 30 characters") @NotEmpty(message = "The field should not be empty") String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(@Size(min = 2, max = 30, message = "The name must not be less than 2 or more than 30 characters") @NotEmpty(message = "The field should not be empty") String username) {
+        this.username = username;
     }
 }
