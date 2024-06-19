@@ -8,7 +8,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Repository
 public class UserDaolmp implements UserDao {
@@ -24,13 +23,12 @@ public class UserDaolmp implements UserDao {
     @Override
     public User getUser(int id) {
         return Optional.ofNullable(entityManager.find(User.class, id))
-                .filter(user -> user != null)
                 .orElseThrow(() -> new EntityNotFoundException("Пользователь с id=" + id + " не найден"));
     }
 
     @Override
     public void addUser(User user) {
-        executeInsideTransaction(entityManager -> entityManager.persist(user));
+        entityManager.persist(user);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class UserDaolmp implements UserDao {
         if (user == null) {
             throw new EntityNotFoundException("Пользователь с id=" + id + " не найден");
         }
-        executeInsideTransaction(entityManager -> entityManager.remove(entityManager.find(User.class, id)));
+        entityManager.remove(entityManager.find(User.class, id));
     }
 
     @Override
@@ -48,14 +46,7 @@ public class UserDaolmp implements UserDao {
         if (existingUser == null) {
             throw new EntityNotFoundException("Пользователь с id=" + user.getId() + " не найден");
         }
-        executeInsideTransaction(entityManager -> entityManager.merge(user));
+        entityManager.merge(user);
     }
 
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
-        try {
-            action.accept(entityManager);
-        } catch (RuntimeException e) {
-            throw e;
-        }
-    }
 }
