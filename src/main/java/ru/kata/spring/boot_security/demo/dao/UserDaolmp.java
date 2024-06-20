@@ -1,14 +1,13 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import ru.kata.spring.boot_security.demo.configs.WebSecurityConfig;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
@@ -38,12 +37,14 @@ public class UserDaolmp implements UserDao {
 
     @Override
     public boolean addUser(User user) {
-        User existingUser = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
-                .setParameter("username", user.getUsername())
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
+        User existingUser = null;
+        try {
+            existingUser = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", user.getUsername())
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            existingUser = null;
+        }
 
         if (existingUser != null) {
             return false;
@@ -52,8 +53,6 @@ public class UserDaolmp implements UserDao {
             entityManager.persist(user);
             return true;
         }
-        /*user.setPassword(passwordEncoder.encode(user.getPassword()));
-        entityManager.persist(user);*/
     }
 
     @Override

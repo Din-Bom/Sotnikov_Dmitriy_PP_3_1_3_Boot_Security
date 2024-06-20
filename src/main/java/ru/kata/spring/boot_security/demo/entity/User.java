@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 
@@ -65,10 +64,10 @@ public class User implements UserDetails {
 
     @Override
     public @Size(min = 2, message = "Имя пользователя не может содержать меньше двух букв")
-           @Size(max = 30, message = "Имя пользователя не может содержать больше тридцати букв")
-           @NotEmpty(message = "Пользователь не может быть создан без имени")
-        String getUsername() {
-            return username;
+    @Size(max = 30, message = "Имя пользователя не может содержать больше тридцати букв")
+    @NotEmpty(message = "Пользователь не может быть создан без имени")
+    String getUsername() {
+        return username;
     }
 
     public void setUsername(@Size(min = 2, message = "Имя пользователя не может содержать меньше двух букв")

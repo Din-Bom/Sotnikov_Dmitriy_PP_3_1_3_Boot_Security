@@ -12,7 +12,7 @@ import ru.kata.spring.boot_security.demo.entity.User;
 public class UserController {
 
     @GetMapping(value = "/userInfo")
-    public String userInfo(@AuthenticationPrincipal User user, Model model){
+    public String userInfo(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("roles", user.getRoleSet());
         return "userInfo";
     }
