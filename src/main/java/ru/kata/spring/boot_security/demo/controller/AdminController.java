@@ -42,10 +42,14 @@ public class AdminController {
 
     @PostMapping("/add")
     public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
             return "new";
         }
-        userService.addUser(user);
+        if (!userService.addUser(user)) {
+            model.addAttribute("error", "Пользователь с именем '" + user.getUsername() + "' уже существует.");
+            return "new";
+        }
         return "redirect:/admin/users";
     }
 

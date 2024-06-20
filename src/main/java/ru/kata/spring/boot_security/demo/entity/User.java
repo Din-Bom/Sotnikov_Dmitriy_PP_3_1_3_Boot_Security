@@ -28,7 +28,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @Size(min = 2, message = "Имя пользователя не может содержать меньше двух букв")
     @Size(max = 30, message = "Имя пользователя не может содержать больше тридцати букв")
     @NotEmpty(message = "Пользователь не может быть создан без имени")

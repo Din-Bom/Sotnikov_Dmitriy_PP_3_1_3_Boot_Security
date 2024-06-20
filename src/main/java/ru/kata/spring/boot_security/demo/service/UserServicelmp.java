@@ -34,8 +34,8 @@ public class UserServicelmp implements UserService {
 
     @Override
     @Transactional
-    public void addUser(User user) {
-        userDao.addUser(user);
+    public boolean addUser(User user) {
+        return userDao.addUser(user);
     }
 
     @Override

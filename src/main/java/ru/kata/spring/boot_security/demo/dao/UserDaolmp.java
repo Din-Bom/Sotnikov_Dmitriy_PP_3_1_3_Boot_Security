@@ -37,10 +37,23 @@ public class UserDaolmp implements UserDao {
     }
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
+        User existingUser = entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                .setParameter("username", user.getUsername())
+                .getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        entityManager.persist(user);
+        if (existingUser != null) {
+            return false;
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            entityManager.persist(user);
+            return true;
+        }
+        /*user.setPassword(passwordEncoder.encode(user.getPassword()));
+        entityManager.persist(user);*/
     }
 
     @Override

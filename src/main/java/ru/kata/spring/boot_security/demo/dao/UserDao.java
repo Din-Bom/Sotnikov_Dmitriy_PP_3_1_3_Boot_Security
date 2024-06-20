@@ -11,7 +11,7 @@ public interface UserDao {
 
     User getUser(int id);
 
-    void addUser(User user);
+    boolean addUser(User user);
 
     void deleteUser(int id);
 
