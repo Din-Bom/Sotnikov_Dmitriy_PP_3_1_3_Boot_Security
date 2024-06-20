@@ -17,7 +17,6 @@
 </head>
 <body>
 <h2><p style="text-align: center;"><b>Добавить нового пользователя</b></h2>
-<br>
 <form th:method="POST" th:action="@{/admin/add}" th:object="${user}">
     <label for="name">Имя пользователя: </label>
     <input type="text" th:field="*{username}" id="name"/>
@@ -27,10 +26,27 @@
     <input type="password" th:field="*{password}" id="password"/>
     <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;">Password is not correct</div>
 
+    <label>Выберите роли:</label>
+    <div th:inline="text">
+        <label for="adminRole">ADMIN:</label>
+        <input type="checkbox" th:field="*{roleSet}" id="adminRole" name="roles" value="1">
+    </div>
+    <div th:inline="text">
+        <label for="userRole">USER: </label>
+        <input type="checkbox" th:field="*{roleSet}" id="userRole" name="roles" value="2">
+    </div>
+
     <input type="submit" value="Добавить"/>
 </form>
 <form th:action="@{/admin/users}" method="GET">
     <input type="submit" value="Вернуться к списку пользователей"/>
 </form>
+<br>
+<div th:align="left">
+    <span>Your login is: <b th:inline="text">[[${#httpServletRequest.remoteUser}]]</b></span>
+    <form th:action="@{/logout}" method="POST" style="display: inline;">
+        <input type="submit" value="Выход"/>
+    </form>
+</div>
 </body>
 </html>

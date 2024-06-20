@@ -60,5 +60,13 @@
     </tbody>
 </table>
 <a th:href="@{/admin/new}">Добавить нового пользователя</a>
+<br>
+<br>
+<div th:align="left">
+    <span>Your login is: <b th:inline="text">[[${#httpServletRequest.remoteUser}]]</b></span>
+    <form th:action="@{/logout}" method="POST" style="display: inline;">
+        <input type="submit" value="Выход"/>
+    </form>
+</div>
 </body>
 </html>

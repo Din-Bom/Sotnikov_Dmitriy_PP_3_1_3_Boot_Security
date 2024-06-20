@@ -42,22 +42,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/user").hasAnyRole("USER","ADMIN")
+                .antMatchers("/userInfo").hasAnyRole("USER","ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-/*                .loginPage("/login")
+                .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .usernameParameter("j_username")
-                .passwordParameter("j_password")*/
+                .passwordParameter("j_password")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout");
+                .logoutSuccessUrl("/login?logout")
+                .and()
+                .csrf().disable();
     }
 
     @Autowired
