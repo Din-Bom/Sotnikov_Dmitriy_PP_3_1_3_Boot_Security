@@ -61,7 +61,7 @@ public class UserDaolmp implements UserDao {
         if (user == null) {
             throw new EntityNotFoundException("Пользователь с id=" + id + " не найден");
         }
-        entityManager.remove(entityManager.find(User.class, id));
+        entityManager.remove(user);
     }
 
     @Override
@@ -71,6 +71,13 @@ public class UserDaolmp implements UserDao {
             throw new EntityNotFoundException("Пользователь с id=" + user.getId() + " не найден");
         }
         entityManager.merge(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return entityManager.createQuery("select u from User u where u.username = :username", User.class)
+                .setParameter("username", username)
+                .getSingleResult();
     }
 
 }
